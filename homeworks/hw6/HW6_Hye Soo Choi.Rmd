@@ -1,0 +1,76 @@
+---
+title: "HW6_Hye Soo Choi"
+author: "Hye Soo Choi"
+date: "July 23, 2015"
+output: pdf_document
+---
+## Motivation
+
+Most R packages live in the Comprehensive R Archive Network better known as CRAN. Many different versions of those packages have been submitted to CRAN. Through this report, we hope to analyze how often the packages that we has used most frequently have been updated and how the size of each packages has changed. 
+
+Source the functions (assuming the file is in working directory):
+```{r, eval=TRUE}
+source('./functions.R')
+```
+---
+
+## Stringr package
+
+Test code with the package 'stringr'; call get_archive_table() and ggstep(). This shows a graph of package size and update dates of package 'stringr' since it first appeared. 
+```{r plot, fig.width=8, fig.height=4}
+stringr_df <- get_archive_table('stringr')
+ggstep(stringr_df)
+```
+
+---
+
+## Other packages : XML, RCurl, ggplot2, boot
+
+Looking at various packages: <br/>
+
+Besides getting a graph about "stringr",  get the CRAN
+archive tables for the packages "XML", "RCurl", "ggplot2" and "boot". Combine all the data
+tables in one single data frame.
+
+```{r}
+# get archive tables
+XML_df <- get_archive_table('XML')
+RCurl_df <- get_archive_table('RCurl')
+ggplot2_df <- get_archive_table('ggplot2')
+boot_df <- get_archive_table('boot')
+
+# combine all the data frames
+all_df <- rbind(boot_df, ggplot2_df, RCurl_df,  XML_df)
+```
+
+---
+
+## Graph
+
+Plot A: all packages in one single frame <br/>
+These are graphs of sizes and update dates of 4 packages in one single frame. 
+
+
+```{r, eval=TRUE}
+ggplot(all_df, aes( x= date, y = size )) + 
+  geom_step(aes(col = name)) + 
+  ylab ('Size(Kilobytes)')
+```
+
+---
+
+Plot B: one package per facet <br/>
+
+
+These are graphs of sizes and update dates of 4 packages, one package per facet with different scale. 
+
+```{r}
+ggplot(all_df, aes( x= date, y = size )) + 
+  geom_step(aes(col = name)) + 
+  facet_wrap( ~ name, scales = "free") +
+  ylab ('Size(Kilobytes)') + 
+  theme(legend.position="none")
+```
+
+## Analysis
+

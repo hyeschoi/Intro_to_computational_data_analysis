@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1438298777831.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "479632F9",
+    "lastKnownWriteTime" : 4294967296,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "storms",
+        "contentUrl" : "content?title=storms&file=0f4ad5ec3f7140da88f93c76bfb1f1b5.htm",
+        "displayedObservations" : 1000,
+        "displayedVariables" : 9,
+        "totalObservations" : 2426,
+        "variables" : 9
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

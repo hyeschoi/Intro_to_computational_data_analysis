@@ -1,0 +1,332 @@
+Last login: Fri Jul 24 09:43:25 on ttys000
+airbears2-10-142-49-150:~ HYESHOOM$ cd Desktop/Summer2015
+airbears2-10-142-49-150:Summer2015 HYESHOOM$ cd practice
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 1,3 stars.csv | sort -k 2 -n
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Boba Fett,male,1.83,78,brown,black,brown,Kamino,31.5BBY,unk_died,no_jedi,human,blaster
+C-3PO,male,1.67,75,NA,NA,NA,Tatooine,112BBY,3ABY,no_jedi,droid,unarmed
+Chewbacca,male,2.28,112,blue,brown,NA,Kashyyyk,200BBY,25ABY,no_jedi,wookiee,bowcaster
+Chief Chirpa,male,1,50,black,gray,brown,Endor,unk_born,4ABY,no_jedi,ewok,spear
+Darth Maul,male,1.75,80,yellow,none,red,Dathomir,54BBY,unk_died,no_jedi,dathomirian,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+Grievous,male,2.16,159,gold,black,orange,Kalee,unk_born,19BBY,no_jedi,kaleesh,slugthrower
+Han Solo,male,1.8,80,brown,brown,light,Corellia,29BBY,unk_died,no_jedi,human,blaster
+Jabba,male,3.9,NA,yellow,none,tan-green,Tatooine,unk_born,4ABY,no_jedi,hutt,unarmed
+Jango Fett,male,1.83,79,brown,black,brown,ConcordDawn,66BBY,22BBY,no_jedi,human,blaster
+Lando Calrissian,male,1.78,79,brown,blank,dark,Socorro,31BBY,unk_died,no_jedi,human,blaster
+Leia Skywalker,female,1.5,49,brown,brown,light,Alderaan,19BBY,unk_died,no_jedi,human,blaster
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Padme Amidala,female,1.65,45,brown,brown,light,Naboo,46BBY,19BBY,no_jedi,human,unarmed
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+R2-D2,male,0.96,32,NA,NA,NA,Naboo,33BBY,unk_died,no_jedi,droid,unarmed
+Sheev Palpatine,male,1.73,75,blue,red,pale,Naboo,82BBY,10ABY,no_jedi,human,force-lightning
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 1,3 -d ',' stars.csv | sort -k 2 -n
+Anakin Skywalker,1.88
+Boba Fett,1.83
+C-3PO,1.67
+Chewbacca,2.28
+Chief Chirpa,1
+Darth Maul,1.75
+Dooku,1.93
+Grievous,2.16
+Han Solo,1.8
+Jabba,3.9
+Jango Fett,1.83
+Lando Calrissian,1.78
+Leia Skywalker,1.5
+Luke Skywalker,1.72
+Obi-Wan Kenobi,1.82
+Padme Amidala,1.65
+Qui-Gon Jinn,1.93
+R2-D2,0.96
+Sheev Palpatine,1.73
+Yoda,0.66
+name,height
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 1,3 -d ',' stars.csv | tail -20 | sort -k 2 -n
+Anakin Skywalker,1.88
+Boba Fett,1.83
+C-3PO,1.67
+Chewbacca,2.28
+Chief Chirpa,1
+Darth Maul,1.75
+Dooku,1.93
+Grievous,2.16
+Han Solo,1.8
+Jabba,3.9
+Jango Fett,1.83
+Lando Calrissian,1.78
+Leia Skywalker,1.5
+Luke Skywalker,1.72
+Obi-Wan Kenobi,1.82
+Padme Amidala,1.65
+Qui-Gon Jinn,1.93
+R2-D2,0.96
+Sheev Palpatine,1.73
+Yoda,0.66
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 1,3 -d ',' stars.csv | tail -20 | sort -k 2
+C-3PO,1.67
+Chewbacca,2.28
+Dooku,1.93
+Grievous,2.16
+Jabba,3.9
+R2-D2,0.96
+Yoda,0.66
+Padme Amidala,1.65
+Lando Calrissian,1.78
+Chief Chirpa,1
+Boba Fett,1.83
+Jango Fett,1.83
+Qui-Gon Jinn,1.93
+Obi-Wan Kenobi,1.82
+Darth Maul,1.75
+Sheev Palpatine,1.73
+Leia Skywalker,1.5
+Luke Skywalker,1.72
+Anakin Skywalker,1.88
+Han Solo,1.8
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 1,3 -d ',' stars.csv | tail -20 | sort -k 2 -n -t","
+Yoda,0.66
+R2-D2,0.96
+Chief Chirpa,1
+Leia Skywalker,1.5
+Padme Amidala,1.65
+C-3PO,1.67
+Luke Skywalker,1.72
+Sheev Palpatine,1.73
+Darth Maul,1.75
+Lando Calrissian,1.78
+Han Solo,1.8
+Obi-Wan Kenobi,1.82
+Boba Fett,1.83
+Jango Fett,1.83
+Anakin Skywalker,1.88
+Dooku,1.93
+Qui-Gon Jinn,1.93
+Grievous,2.16
+Chewbacca,2.28
+Jabba,3.9
+airbears2-10-142-49-150:practice HYESHOOM$ head starwars.csv
+head: starwars.csv: No such file or directory
+airbears2-10-142-49-150:practice HYESHOOM$ head -1 stars.csv
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+airbears2-10-142-49-150:practice HYESHOOM$ grep human stars.csv | wc -l 
+      12
+airbears2-10-142-49-150:practice HYESHOOM$ grep -i jedis stars.csv
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w jedis stars.csv
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w jedi stars.csv
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+airbears2-10-142-49-150:practice HYESHOOM$ grep -i jedi stars.csv
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Padme Amidala,female,1.65,45,brown,brown,light,Naboo,46BBY,19BBY,no_jedi,human,unarmed
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Leia Skywalker,female,1.5,49,brown,brown,light,Alderaan,19BBY,unk_died,no_jedi,human,blaster
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Han Solo,male,1.8,80,brown,brown,light,Corellia,29BBY,unk_died,no_jedi,human,blaster
+Sheev Palpatine,male,1.73,75,blue,red,pale,Naboo,82BBY,10ABY,no_jedi,human,force-lightning
+R2-D2,male,0.96,32,NA,NA,NA,Naboo,33BBY,unk_died,no_jedi,droid,unarmed
+C-3PO,male,1.67,75,NA,NA,NA,Tatooine,112BBY,3ABY,no_jedi,droid,unarmed
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+Darth Maul,male,1.75,80,yellow,none,red,Dathomir,54BBY,unk_died,no_jedi,dathomirian,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+Chewbacca,male,2.28,112,blue,brown,NA,Kashyyyk,200BBY,25ABY,no_jedi,wookiee,bowcaster
+Jabba,male,3.9,NA,yellow,none,tan-green,Tatooine,unk_born,4ABY,no_jedi,hutt,unarmed
+Lando Calrissian,male,1.78,79,brown,blank,dark,Socorro,31BBY,unk_died,no_jedi,human,blaster
+Boba Fett,male,1.83,78,brown,black,brown,Kamino,31.5BBY,unk_died,no_jedi,human,blaster
+Jango Fett,male,1.83,79,brown,black,brown,ConcordDawn,66BBY,22BBY,no_jedi,human,blaster
+Grievous,male,2.16,159,gold,black,orange,Kalee,unk_born,19BBY,no_jedi,kaleesh,slugthrower
+Chief Chirpa,male,1,50,black,gray,brown,Endor,unk_born,4ABY,no_jedi,ewok,spear
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w jedi stars.csv
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+airbears2-10-142-49-150:practice HYESHOOM$ grep man
+^Z
+[1]+  Stopped                 grep man
+airbears2-10-142-49-150:practice HYESHOOM$ man grep
+airbears2-10-142-49-150:practice HYESHOOM$ 
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w -c jedi stars.csv
+7
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w jedi stars.csv | cut -f 1
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w jedi stars.csv | cut -f 1 -d ','
+name
+Anakin Skywalker
+Luke Skywalker
+Qui-Gon Jinn
+Obi-Wan Kenobi
+Yoda
+Dooku
+airbears2-10-142-49-150:practice HYESHOOM$ grep -w jedi stars.csv | cut -f 1 -d ','|tail -6 | sort
+Anakin Skywalker
+Dooku
+Luke Skywalker
+Obi-Wan Kenobi
+Qui-Gon Jinn
+Yoda
+airbears2-10-142-49-150:practice HYESHOOM$ man unique
+No manual entry for unique
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 12 -d "," stars.csv | sort | uniq -c
+   1 dathomirian
+   2 droid
+   1 ewok
+  12 human
+   1 hutt
+   1 kaleesh
+   1 species
+   1 wookiee
+   1 yoda
+airbears2-10-142-49-150:practice HYESHOOM$ head -1 stars.csv
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 stars.csv
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Padme Amidala,female,1.65,45,brown,brown,light,Naboo,46BBY,19BBY,no_jedi,human,unarmed
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Leia Skywalker,female,1.5,49,brown,brown,light,Alderaan,19BBY,unk_died,no_jedi,human,blaster
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Han Solo,male,1.8,80,brown,brown,light,Corellia,29BBY,unk_died,no_jedi,human,blaster
+Sheev Palpatine,male,1.73,75,blue,red,pale,Naboo,82BBY,10ABY,no_jedi,human,force-lightning
+R2-D2,male,0.96,32,NA,NA,NA,Naboo,33BBY,unk_died,no_jedi,droid,unarmed
+C-3PO,male,1.67,75,NA,NA,NA,Tatooine,112BBY,3ABY,no_jedi,droid,unarmed
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+Darth Maul,male,1.75,80,yellow,none,red,Dathomir,54BBY,unk_died,no_jedi,dathomirian,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+Chewbacca,male,2.28,112,blue,brown,NA,Kashyyyk,200BBY,25ABY,no_jedi,wookiee,bowcaster
+Jabba,male,3.9,NA,yellow,none,tan-green,Tatooine,unk_born,4ABY,no_jedi,hutt,unarmed
+Lando Calrissian,male,1.78,79,brown,blank,dark,Socorro,31BBY,unk_died,no_jedi,human,blaster
+Boba Fett,male,1.83,78,brown,black,brown,Kamino,31.5BBY,unk_died,no_jedi,human,blaster
+Jango Fett,male,1.83,79,brown,black,brown,ConcordDawn,66BBY,22BBY,no_jedi,human,blaster
+Grievous,male,2.16,159,gold,black,orange,Kalee,unk_born,19BBY,no_jedi,kaleesh,slugthrower
+Chief Chirpa,male,1,50,black,gray,brown,Endor,unk_born,4ABY,no_jedi,ewok,spear
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 stars.csv -d ','
+name,gender,height,weight,eyecolor,haircolor,skincolor,homeland,born,died,jedi,species,weapon
+Anakin Skywalker,male,1.88,84,blue,blond,fair,Tatooine,41.9BBY,4ABY,jedi,human,lightsaber
+Padme Amidala,female,1.65,45,brown,brown,light,Naboo,46BBY,19BBY,no_jedi,human,unarmed
+Luke Skywalker,male,1.72,77,blue,blond,fair,Tatooine,19BBY,unk_died,jedi,human,lightsaber
+Leia Skywalker,female,1.5,49,brown,brown,light,Alderaan,19BBY,unk_died,no_jedi,human,blaster
+Qui-Gon Jinn,male,1.93,88.5,blue,brown,light,unk_planet,92BBY,32BBY,jedi,human,lightsaber
+Obi-Wan Kenobi,male,1.82,77,bluegray,auburn,fair,Stewjon,57BBY,0BBY,jedi,human,lightsaber
+Han Solo,male,1.8,80,brown,brown,light,Corellia,29BBY,unk_died,no_jedi,human,blaster
+Sheev Palpatine,male,1.73,75,blue,red,pale,Naboo,82BBY,10ABY,no_jedi,human,force-lightning
+R2-D2,male,0.96,32,NA,NA,NA,Naboo,33BBY,unk_died,no_jedi,droid,unarmed
+C-3PO,male,1.67,75,NA,NA,NA,Tatooine,112BBY,3ABY,no_jedi,droid,unarmed
+Yoda,male,0.66,17,brown,brown,green,unk_planet,896BBY,4ABY,jedi,yoda,lightsaber
+Darth Maul,male,1.75,80,yellow,none,red,Dathomir,54BBY,unk_died,no_jedi,dathomirian,lightsaber
+Dooku,male,1.93,86,brown,brown,light,Serenno,102BBY,19BBY,jedi,human,lightsaber
+Chewbacca,male,2.28,112,blue,brown,NA,Kashyyyk,200BBY,25ABY,no_jedi,wookiee,bowcaster
+Jabba,male,3.9,NA,yellow,none,tan-green,Tatooine,unk_born,4ABY,no_jedi,hutt,unarmed
+Lando Calrissian,male,1.78,79,brown,blank,dark,Socorro,31BBY,unk_died,no_jedi,human,blaster
+Boba Fett,male,1.83,78,brown,black,brown,Kamino,31.5BBY,unk_died,no_jedi,human,blaster
+Jango Fett,male,1.83,79,brown,black,brown,ConcordDawn,66BBY,22BBY,no_jedi,human,blaster
+Grievous,male,2.16,159,gold,black,orange,Kalee,unk_born,19BBY,no_jedi,kaleesh,slugthrower
+Chief Chirpa,male,1,50,black,gray,brown,Endor,unk_born,4ABY,no_jedi,ewok,spear
+cut: -d: No such file or directory
+cut: ,: No such file or directory
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f -d ',' 13 stars.csv 
+cut: [-cf] list: illegal list value
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 -d ','  stars.csv 
+weapon
+lightsaber
+unarmed
+lightsaber
+blaster
+lightsaber
+lightsaber
+blaster
+force-lightning
+unarmed
+unarmed
+lightsaber
+lightsaber
+lightsaber
+bowcaster
+unarmed
+blaster
+blaster
+blaster
+slugthrower
+spear
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 -d ','  stars.csv | wc -l
+      21
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 -d ','  stars.csv | tail -20
+lightsaber
+unarmed
+lightsaber
+blaster
+lightsaber
+lightsaber
+blaster
+force-lightning
+unarmed
+unarmed
+lightsaber
+lightsaber
+lightsaber
+bowcaster
+unarmed
+blaster
+blaster
+blaster
+slugthrower
+spear
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 -d ','  stars.csv | tail -20|uniq -c
+   1 lightsaber
+   1 unarmed
+   1 lightsaber
+   1 blaster
+   2 lightsaber
+   1 blaster
+   1 force-lightning
+   2 unarmed
+   3 lightsaber
+   1 bowcaster
+   1 unarmed
+   3 blaster
+   1 slugthrower
+   1 spear
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 -d ','  stars.csv | tail -20|uniq -c | sort -r
+   3 lightsaber
+   3 blaster
+   2 unarmed
+   2 lightsaber
+   1 unarmed
+   1 unarmed
+   1 spear
+   1 slugthrower
+   1 lightsaber
+   1 lightsaber
+   1 force-lightning
+   1 bowcaster
+   1 blaster
+   1 blaster
+airbears2-10-142-49-150:practice HYESHOOM$ cut -f 13 -d ','  stars.csv | tail -20| sort | uniq -c | sort -r
+   7 lightsaber
+   5 blaster
+   4 unarmed
+   1 spear
+   1 slugthrower
+   1 force-lightning
+   1 bowcaster
+airbears2-10-142-49-150:practice HYESHOOM$ 

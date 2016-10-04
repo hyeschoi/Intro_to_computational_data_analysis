@@ -1,0 +1,231 @@
+---
+title: "Homework7 Report"
+author: "Hye Soo Choi"
+date: "August 2, 2015"
+header-includes: \usepackage{graphicx}
+                 \usepackage{float}
+output: 
+    pdf_document:
+        fig_caption: true
+---
+-----
+
+## Data source
+
+In this study, we analyzed the data about storms that hit the world in 2010, in terms of location, speed, pressure, date of occurence, and duration. We used the storm data of 2010 [(Year.2010.ibtracs_wmo.v03r06.cxml)](Year.2010.ibtracs_wmo.v03r06.cxml), which can be obtained at the __International Best Track Archive for Climate Stewardship (IBTrACS)__  [(ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r06/wmo/cxml/year)](ftp://eclipse.ncdc.noaa.gov/pub/ibtracs/v03r06/wmo/cxml/year). 
+
+-----
+
+## Data cleaning
+
+A cleaned data.frame, *storms*, was created by mainly using *XPATH* expressions from **XML** package, to extract various pieces of data. After extracting the variables of interest and changing the variable formats, the final data include the following variables:
+
+ - name: name of the storm (e.g. ANJA) 
+ - date: date (e.g. 2009-11-13) 
+ - time: time (e.g. 06:00:00) 
+ - latitude: latitude (e.g. -9.50) 
+ - lat_deg: latitude degrees (e.g. “N”) 
+ - longitude: longitude (e.g. 72.50) 
+ - lon_deg": longitude degrees (e.g. “E”) 
+ - press: pressure (e.g. 1006.0)
+ - wind: wind speed (e.g. 0.0) 
+
+
+
+```{r echo = FALSE, message= FALSE}
+# necessary packages
+library(knitr)
+library(xtable)
+library(readr)
+library(sp)
+library(gpclib)
+library(ggplot2)
+library(ggmap)
+library(maptools)
+library(maps)
+```
+
+
+```{r ,echo = FALSE}
+storms <- read_csv('./ibtracs_2010.csv', col_names = TRUE)
+```
+
+The following displays the first 6 observations in the data.
+
+```{r head, eval = TRUE}
+head(storms, 6)
+```
+
+-----
+
+## Data analysis
+
+```{r, echo = FALSE}
+
+
+# summary statistics for pressure
+sum_pressure <- c(min(na.omit(storms$press))
+, max(na.omit(storms$press))
+, sd(na.omit(storms$press))
+, mean(na.omit(storms$press))
+, quantile(na.omit(storms$press)))
+
+# summary statistics for wind speed
+sum_wind <- c(min(na.omit(storms$wind))
+, max(na.omit(storms$wind))
+, sd(na.omit(storms$wind))
+, mean(na.omit(storms$wind))
+, quantile(na.omit(storms$wind)))
+
+# duration: a vector that shows how many days each storm last for.
+
+duration <- sapply(unique(storms$name), function(x) {max(storms$date[storms$name == x]) - min(storms$date[storms$name == x])})
+
+# summary statistics for duration
+sum_duration <- c(min(duration)
+, max(duration)
+, sd(duration)
+, mean(duration)
+, quantile(duration))
+
+
+# combine summary statistics for pressure, wind speed, duration into a data frame
+summary <- rbind(sum_pressure, sum_wind, sum_duration)
+colnames(summary)[1:4] <- c('min','max','sd','mean')
+summary <- summary[,c('mean','sd','min','max','25%','50%','75%')]
+rownames(summary) <- c('pressure','speed','duration')
+```
+
+
+
+An exploratory analysis was performed with respect to the pressure, wind speed, and duration of storms.
+We first examine the descriptive statistics of the variables. 
+The following table presents the summary statistics of the three variables. 
+
+
+```{r  results='asis', echo=FALSE, message= FALSE}
+xtb <- xtable(summary, format= 'latex', caption = 'summary statistics of pressure, speed, duration')
+print(xtb, comment = FALSE, table.placement= 'H', type= 'latex')
+
+```
+
+
+To understand the distribution, we also produced histogram and boxplot for each variable. 
+
+
+```{r fig.width = 7, fig.height= 5, echo = FALSE, fig.show = 'asis', fig.cap ='Histogram and Box plot of pressure, wind speed, duration'}
+
+op <- par(mfrow = c(3,2))
+
+hist(storms$press, xlab = 'Pressure (hPa)' , main = 'Histogram')
+boxplot(na.omit(storms$press), main = 'Box plot', xlab='Pressure (hPa)', horizontal = TRUE)
+
+
+hist(storms$wind, xlab = 'Wind speed (kt)' ,  main = '')
+boxplot(storms$wind,  main = '', xlab='Wind speed (kt)', horizontal = TRUE)
+
+
+hist(duration, xlab = 'Duration (day)',  main = '')
+boxplot(duration, horizontal = TRUE, xlab = 'Duration (day)', main = '')
+
+par(op)
+```
+
+
+
+We can observe that the pressure is skewed to left, and the wind speed and duration are skewed to left. 
+
+------
+
+In addition, we also found several informative factors of the storms: 
+
+
+```{r echo =FALSE}
+storm_2010 <- unique(storms$name[format(storms$date, '%Y') == '2010'])
+```
+- Total number of storms in 2010: `r length(storm_2010)`
+
+```{r echo = FALSE}
+
+tropical <- unique(storms$name[na.omit(storms$wind >= 35)])
+```
+
+- Number of storms with winds >= 35 knots (tropical storms): `r length(tropical)`
+
+```{r echo = FALSE}
+hurricane <- unique(storms$name[na.omit(storms$wind >= 64)])
+```
+
+- Number of storms with winds >= 64 knots (hurricanes): `r length(hurricane)`
+
+
+```{r echo = FALSE} 
+major_hurricane <- unique(storms$name[na.omit(storms$wind >= 96)])
+```
+- Number of storms with winds >= 96 knots (major hurricanes) : `r length(major_hurricane)`
+
+``` {r echo = FALSE}
+# north : vector of storms on the north hemisphere
+# south : vector of storms on the south hemisphere
+
+north <- unique(storms$name[na.omit(storms$latitude >= 0)])
+south <- unique(storms$name[na.omit(storms$latitude < 0)])
+```
+
+- Number of storms on the north hemisphere: `r length(north)`
+- Number of storms on the south hemisphere: `r length(south)`
+
+
+```{r echo = FALSE}
+month <- months(storms$date, abbreviate = TRUE)
+freq_month <- table(month)
+freq_month <- freq_month[month.abb]
+
+month_north <- months(storms$date[na.omit(storms$longitude >= 0)], abbreviate =  TRUE)
+freq_north <- table(month_north)
+freq_north <- freq_north[month.abb]
+
+freq_south <- freq_month - freq_north
+
+freq <- as.data.frame(rbind(freq_month, freq_north, freq_south))
+rownames(freq) <- c('World','Northern', 'Southern') 
+```
+
+- Frequency table of data points per month (month in words) in the world, northern hemisphere, and southern hemisphere:
+
+
+```{r echo = FALSE, results='asis'}
+
+xtb1 <- xtable(freq, format= 'latex', caption = 'Frequency table of data points per month in the world, and nothern and southern hemisphere')
+print(xtb1, comment = FALSE)
+
+```
+
+- Name of storm that lasted most days : `r names(duration)[duration == max(duration)]`
+
+- Name of storm with maximum wind speed and the maximum speed value: `r unique(storms$name[na.omit(storms$wind == max(storms$wind, na.rm = TRUE))])` and `r max(storms$wind, na.rm = TRUE)`
+
+- Name of storm with minimum pressure and the maximum pressure value: `r unique(storms$name[na.omit(storms$press == min(storms$press, na.rm = TRUE))])` and `r min(storms$press, na.rm = TRUE)`
+
+-----
+
+## Data visualization
+
+For the visualization of the data, we produced a world map with spatial distribution of storm activity in 2010. The color of data points reflects the intensity of each storm activity; the  higher wind speed was, the darker blue a point is colored on the map.
+
+
+```{r echo=FALSE, fig.width=7, fig.height= 3 , fig.cap = 'Spatial distribution of storm activity in 2010'}
+mp1 <- NULL
+mapWorld <- borders("world", colour="#dd855c40", fill="#67b988") # create a layer of borders
+mp1 <- ggplot(storms, aes(x=longitude, y=latitude, col = wind) ) + mapWorld
+mp1 <- mp1+ geom_point(pch= 20, size=3, alpha = 1/2) 
+mp1 <- mp1 + ggtitle('IBTrACS Storms 2010')
+mp1 <- mp1 + xlab('Longitude') + ylab('Latitude')
+mp1 <- mp1 + theme(panel.background = element_rect(fill = "#aae6f6"),
+                 panel.grid.major = element_blank(),
+                 panel.grid.minor = element_blank())
+mp1 <- mp1 + geom_hline(yintercept = 0 , col='#285658a0', linetype = 2)
+ 
+mp1
+```
+

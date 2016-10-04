@@ -1,0 +1,154 @@
+---
+title: "Lab 15 Solutions"
+author: "Donovan Lieu"
+date: "August 10, 2015"
+output: html_document
+---
+
+## SQL
+
+This week, we'll be working with SQL, specifically with MySQL.
+SQL (Structured Query Language) is a programming language intended to manipulate data in a relational database management system (RDBMS).
+That is, it works with databases, each consisting of tables that can be worked with independently, or together.
+Today, we'll mostly just be setting up everything and exploring very basic capabilities.
+Tuesday and Wednesday, we'll do some more interesting things.
+
+SQL is a declarative programming language, unlike R.
+In SQL, instead of giving explicit instructions, the user provides a set of criteria for the result, but does not explicitly give instructions on how to obtain this result.
+You may observe that this type of programming is exhibited by regex, in which a pattern is supplied to be matched, but no code is written to actually find the match.
+
+### Beginning with MySQL
+
+First of all, you'll want to download MySQL from the following website: "http://dev.mysql.com/downloads/mysql/".
+You only need the MySQL Server, but feel free to install the entire package.
+
+Make a note of your user name, if you specify it.
+By default, there should be an account with user name "root" (I think).
+Also, remember your password (you'll need it).
+
+Once you've got the MySQL Server installed, locate the mysql application, and add it to your path.
+
+Now we can run MySQL from the command line.
+To start MySQL, run `mysql -u root -p`.
+(Replace root with your user name if it is different.)
+Then type your password.
+
+The command `SHOW DATABASES;` shows all of the databases on your current MySQL directory.
+
+You can create a database with the command `CREATE DATABASE db;`.
+(Change "db" to the name of the database you want to create.)
+
+To move inside a particular database, say `db`, use the command `USE db;`.
+
+Once inside a database, the command `SHOW TABLES;` will list the tables in that database.
+
+Later, we'll see how to actually work with databases and the tables inside them.
+
+### MySQL in R
+
+Several packages exist in R that allow a user to manipulate data in both R and SQL.
+Since we're using MySQL, we'll be using the R package RMySQL.
+Install this package.
+
+```{r, eval = FALSE}
+install.packages("RMySQL")
+```
+
+And load the package.
+
+```{r, eval = FALSE}
+library(RMySQL)
+```
+
+Once the package is loaded, we need to access the MySQL server.
+
+```{r, eval = FALSE}
+drv <- dbDriver("MySQL")
+con <- dbConnect(drv, user = "root", dbname = "mysql", password = "s133",
+  host = "localhost")
+# Replace user, dbname, password, and host as necessary.
+```
+
+When you're done with MySQL, disconnect from the server and unload the driver as follows:
+
+```{r, eval = FALSE}
+# Don't run these yet!
+dbDisconnect(con)
+dbUnloadDriver(drv)
+```
+
+There are some specialized functions built into the RMySQL package, but they are mostly unnecessary.
+For example, to list the tables in your current database:
+
+```{r, eval = FALSE}
+# Built-in RMySQL function
+dbListTables(con)
+
+# Or
+query <- "SHOW TABLES;"
+dbGetQuery(con, query)
+```
+
+See the documentation for other examples of such built-in functions.
+
+Importantly, we can add data frames in R to a database in MySQL.
+
+```{r, eval = FALSE}
+dbDisconnect(con)
+con <- dbConnect(drv, user = "root", dbname = "db", password = "s133",
+  host = "localhost")
+
+dbWriteTable(con, "state", as.data.frame(state.x77))
+```
+
+Now you can check that we have succesfully added a table to our database.
+
+```{r, eval = FALSE}
+dbGetQuery(con, "SHOW TABLES;")
+
+# View contents of table
+dbGetQuery(con, "SELECT * FROM state;")
+# More on how to do this shortly
+```
+
+### Basic Subsetting in SQL
+
+The most common command in SQL is the `SELECT` command, used to subset a table or tables.
+For now, we'll work with only one table at a time.
+
+The basic syntax is `SELECT select_expr FROM table`, where select_expr is a set of columns and table is the table we are subsetting.
+
+For example:
+
+```{r, eval = FALSE}
+dbGetQuery(con, "SELECT row_names, Population FROM state;")
+```
+
+As you saw earlier, using `*` as the select expression will return all columns.
+
+Finally, for now, notice that select expressions allow us to subset certain columns.
+We can modify a select expression to only give us certain rows as well, using the `WHERE` command.
+
+For example:
+
+```{r, eval = FALSE}
+dbGetQuery(con, "SELECT row_names FROM state WHERE Population >= 10000;")
+
+# Equivalently, using `NOT` for negation
+dbGetQuery(con, "SELECT row_names FROM state WHERE NOT Population < 10000;")
+```
+
+Multiple constraints can be imposed by using `AND` and `OR`.
+Strings should be denoted using single quotes.
+
+Your turn!
+
+Extract the names of those states with an illiteracy rate of less than 1% and a murder rate of less than 10.
+Hopefully, this should be fairly simple.
+
+```{r, eval = FALSE}
+# Fill in.
+dbGetQuery(con, "SELECT row_names FROM state WHERE Illiteracy < 1 AND Murder < 10")
+```
+
+Don't forget to disconnect from the MySQL server and unload the driver!

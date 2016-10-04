@@ -1,0 +1,122 @@
+---
+title: "Lab 14 Solutions"
+author: "Donovan Lieu"
+date: "August 6, 2015"
+output: html_document
+---
+
+## Simulation in R
+
+Today we'll be looking at some simple simulations in R.
+We'll then run some simulations from the command line.
+(For the most part, any simulation that can be run from the command line can also be run from the R console, but we'll do it from the command line for the practice.
+This may come in handy if, say, you have a long simulation that you want to run without tying up RStudio.)
+
+Before we begin, let's make sure that everyone is comfortable with running R files from the command line.
+
+### Basic Simulation
+
+Often in statistics it is easier to extract information through simulation than via theory.
+Here is a function which you can think of as a black box.
+For our purposes it will simply represent a biased coin flip.
+
+```{r}
+flip <- function() {
+  p <- rbeta(1, 3, 7)
+  p <- 4*p*(1-p)
+  
+  if (p < 0.5) {
+    return("HEADS")
+  } else {
+    return("TAILS")
+  }
+}
+
+set.seed(0)
+
+flip()
+```
+
+In this case it seems to difficult to extract explicitly the probability of heads (or tails) from this function.
+Instead, we can approximate this probability by simply calling this function many times.
+
+The function `replicate()` repeatedly evaluates a given expression a fixed number of times.
+So to flip 100 coins, we could do as follows:
+
+```{r}
+set.seed(0)
+
+samp <- replicate(100, flip())
+
+table(samp)
+```
+
+By flipping a larger number of coins, you could in theory get a better and better estimate for this probability.
+
+What if you wanted to know how accurate your estimate was?
+Or in more precise terms, what if you wanted to form some sort of confidence interval for your estimate?
+
+Again, in cases like this, a theoretical computation seems infeasible, especially if we treat the function like a black box.
+
+Taking repeated samples, each like the one above, should give us a good idea of the distribution of our estimate.
+
+Your turn!
+
+First create 1000 samples, each of 100 coin flips.
+(Hint: The previous code chunk creates one such sample.)
+Then create a histogram of estimates from these samples.
+For each of the 1000 samples, you should just have an estimate of the probability of heads.
+
+```{r}
+# Fill in.
+flips <- replicate(1000, replicate(100, flip()))
+prop <- function(x) {
+  table(x)["HEADS"]/length(x)
+}
+means <- apply(flips, 2, prop)
+hist(means)
+```
+
+### A Historical Example
+
+The 17th century French gambler Chevalier de Mere wanted to know the probability of rolling at least one "6" in four rolls, given a standard six-sided die.
+Although he could not correctly determine this probability, he won money by betting on such an occurrence.
+(He incorrectly reasoned that this probability was 2/3.)
+
+A similar bet of his involved rolling at least one double "6" in twenty four rolls of two standard six-sided dice.
+Unlike the previous, in this bet, he tended to lose money.
+(Rather confusing since he used the same reasoning to incorrectly determine that this probability was 2/3 as well.)
+
+Write an R script which answers this type of question through simulation.
+You should be able to run this R script from the command line.
+
+Make sure that your R script satisfies the following criteria:
+  1. Your R script should take as its first two arguments: the number of dice, and the number of rolls. For example, `Rscript dice.R 1 4` should correspond to de Mere's first bet.
+  2. First output an estimate of the probability of success. Add a third argument to indicate the size of the sample used in this estimate. Give it a default value in case a third argument is not specified.
+  3. Similar to before, create a histogram of these estimates for a given number of samples. Add a fourth argument to indicate the number of samples (and hence number of estimates). Give it a default value in case a fourth argument is not specified.
+  4. Finally, suppose de Mere started with $5 and bet $1 (with even odds) on each set of die rolls. Output the probability de Mere will reach $10 before going bankrupt.
+
+### Bootstrap
+
+As a final example, consider what happens when instead of a way of generating values from some distribution, instead you just have a small sample from the population.
+How do you determine the accuracy of your estimates?
+
+One solution is the so-called bootstrap, in which you sample from the given sample in lieu of the population itself.
+
+For example, here are some heights in inches from a given population.
+
+```{r}
+hts <- c(65.78, 71.52, 69.40, 68.22, 67.79, 68.70, 69.80, 70.01, 67.90, 66.78)
+```
+
+To determine the average height of the population, you could just take the sample mean.
+To determine how accurate this estimate is, we would like to take repeated samples of the same size from the population.
+Since our only data is in the given sample, we can instead sample with replacement from this sample to get an idea of the distribution.
+
+Your turn!
+
+Create histogram of average height estimates using 1000 bootstrapped samples of size 10.
+
+```{r}
+hist(replicate(1000, mean(sample(hts, 10, replace = TRUE))))
+```

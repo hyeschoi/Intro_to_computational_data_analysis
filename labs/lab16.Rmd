@@ -1,0 +1,92 @@
+---
+title: "Lab 16"
+author: "Your Name"
+date: "August 11, 2015"
+output: html_document
+---
+
+## SQL (Continued)
+
+We'll continue where we left off yesterday, and then we'll move on to some more SQL commands.
+
+Before running MySQL, you'll need to first start the MySQL Server.
+On Windows, run the Command Prompt as administrator, and use the command `mysqld`.
+On Mac, go to System Preferences, find MySQL, and click "Start MySQL Server".
+
+When you want to stop the server, you can use the command `mysqladmin -u root shutdown -p`, after which you should enter your server password.
+If your server does not have a password, then omit the `-p`.
+
+Continue with lab 15 before returning here ...
+
+```{r, eval = FALSE}
+library(RMySQL)
+
+drv <- dbDriver("MySQL")
+con <- dbConnect(drv, user = "root", dbname = "mysql", password = "",
+  host = "localhost")
+
+dbGetQuery(con, "USE db;")
+```
+
+### Aggregate Functions
+
+SQL contains a few aggregate functions which operate on the rows of a given table.
+These include: `COUNT`, `SUM`, `AVG`, `MIN`, and `MAX`.
+Hopefully the purpose of these functions should be relatively obvious without explanation.
+
+A simple example:
+
+```{r, eval = FALSE}
+dbGetQuery(con, "SELECT AVG(Population) FROM state;")
+```
+
+Recall from the previous lab that `*` returns all rows of the table.
+
+Then predict what the following line does in general, and run it to check your prediction.
+
+```{r, eval = FALSE}
+# What should this evaluate to?
+dbGetQuery(con, "SELECT COUNT(*) FROM state;")
+```
+
+The output of an SQL query can also be used as the input to another SQL query.
+
+Your turn!
+
+Determine which states have above average income, but below average high school graduation rates.
+
+```{r, eval = FALSE}
+# Fill in.
+dbGetQuery(con, "SELECT row_names FROM state WHERE Income > (SELECT AVG(Income) from state) AND Illiteracy < (SELECT AVG(Illiteracy) from state);")
+```
+
+### Other Basic SQL Clauses
+
+The `GROUP BY` clause can be appended to an SQL query.
+This clause allows aggregate functions to be independently applied to subsets of a given table.
+
+The `HAVING` clause can be further appended after a `GROUP BY` clause.
+This clause allows the user to retain only those groups which satisfy a certain criterion (or criteria).
+
+Your turn!
+
+Consider the built-in dataset `sleep`.
+
+```{r, eval = FALSE}
+sleep
+```
+
+First add a table containing this dataset o the database `db`.
+Then determine the mean, minimum, and maximum values of extra for the entire dataset.
+Finally determine the mean, minimum, and maximum values of extra for each group.
+
+```{r, eval = FALSE}
+# Fill in.
+```
+
+When you're done with the lab, make sure to disconnect from the MySQL Server and unload the driver.
+
+```{r, eval = FALSE}
+dbDisconnect(con)
+dbUnloadDriver(drv)
+```

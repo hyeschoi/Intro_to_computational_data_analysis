@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1438295378708.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "70C8756",
+    "lastKnownWriteTime" : 4472835840,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "cln_climate",
+        "contentUrl" : "content?title=cln_climate&file=f38bef92b63e49ea966c0a7ee8583197.htm",
+        "displayedObservations" : 1000,
+        "displayedVariables" : 9,
+        "totalObservations" : 2491,
+        "variables" : 9
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
